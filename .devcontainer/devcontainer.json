@@ -15,22 +15,21 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		// R extensions
-		"ikuyadeu.r",
-		"REditorSupport.r-lsp",
-		// Utility extensions, feel free to adjust them
-		"coenraads.bracket-pair-colorizer-2",
 		"streetsidesoftware.code-spell-checker",
 		"eamodio.gitlens",
-		"sdras.night-owl"
+		"sdras.night-owl",
+		"REditorSupport.r",
+		"RDebugger.r-debugger"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "R -e renv::restore()"
-
+	"postCreateCommand": {
+		"renv": "R -e 'renv::restore()'", // Restores from the renv lock file
+		"vsc_attach": "R -e '.vsc.attach()'" // attachs vsc so the R code completion works
+	}	
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "docker"
 }
